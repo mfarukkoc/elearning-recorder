@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Sample Site</title>
+    <title>Recording Prototype</title>
 
     <link
       rel="stylesheet"
@@ -17,11 +17,11 @@
   </head>
   <body>
     <div class="container">
-      <video id="player" autoplay style="width: 100%"></video>
-      <button id="download">Download</a>
-      <button id="stop">Stop</button>
+      <video id="player" autoplay muted style="width: 100%"></video>
+      <button id="record">Start Recording</button>
+      <button id="stop" disabled>Stop & Upload</button>
     </div>
   </body>
-
-  <script src="./script.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="./script.js" async></script>
 </html>

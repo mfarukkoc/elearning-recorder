@@ -1,57 +1,98 @@
-// var player = document.getElementById("player");
-// // Prefer camera resolution nearest to 1280x720.
-// var constraints = { audio: true, video: { width: 1280, height: 720 } };
-
-// navigator.mediaDevices
-//   .getUserMedia(constraints)
-//   .then(function (mediaStream) {
-//     var video = document.querySelector("video");
-//     video.srcObject = mediaStream;
-//     video.onloadedmetadata = function (e) {
-//       video.play();
-//     };
-//   })
-//   .catch(function (err) {
-//     console.log(err.name + ": " + err.message);
-//   }); // always check for errors at the end.
-
 const player = document.getElementById("player");
-let shouldStop = false;
-let stopped = false;
-const downloadLink = document.getElementById("download");
+const recordButton = document.getElementById("record");
 const stopButton = document.getElementById("stop");
 
-stopButton.addEventListener("click", function () {
-  player.pause();
-  shouldStop = true;
+async function init(constraints) {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    console.log("success");
+  } catch (e) {
+    console.error("navigator.getUserMedia error:", e);
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
+
+recordButton.addEventListener("click", async () => {
+  const constraints = {
+    video: {
+      width: 720,
+      height: 480,
+    },
+  };
+  await init(constraints);
+  startRecording();
 });
 
-var handleSuccess = function (stream) {
-  const options = { mimeType: "video/webm; codecs=vp9" };
-  const recordedChunks = [];
-  const mediaRecorder = new MediaRecorder(stream, options);
+stopButton.addEventListener("click", () => {
+  stopRecording();
+});
+
+let mediaRecorder;
+let recordedBlobs;
+
+function handleSuccess(stream) {
+  recordButton.disabled = false;
+  console.log("getUserMedia() got stream:", stream);
+  window.stream = stream;
+
   player.srcObject = stream;
+}
 
-  mediaRecorder.addEventListener("dataavailable", function (e) {
-    console.log("data available");
-    if (e.data.size > 0) {
-      recordedChunks.push(e.data);
+function handleDataAvailable(event) {
+  console.log("handleDataAvailable", event);
+  if (event.data && event.data.size > 0) {
+    recordedBlobs.push(event.data);
+  }
+}
+
+function startRecording() {
+  recordedBlobs = [];
+
+  // handle video codec, set supported codec
+  let options = { mimeType: "video/webm;codecs=vp9,opus" };
+  if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    console.error(`${options.mimeType} is not supported`);
+    options = { mimeType: "video/webm;codecs=vp8,opus" };
+    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+      console.error(`${options.mimeType} is not supported`);
+      options = { mimeType: "video/webm" };
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.error(`${options.mimeType} is not supported`);
+        options = { mimeType: "" };
+      }
     }
-
-    if (shouldStop === true && stopped === false) {
-      mediaRecorder.stop();
-      stopped = true;
-    }
-  });
-
-  mediaRecorder.addEventListener("stop", function () {
-    downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
-    downloadLink.download = "acetest.webm";
-  });
-
+  }
+  try {
+    mediaRecorder = new MediaRecorder(window.stream, options);
+  } catch (e) {
+    console.error("Exception while creating MediaRecorder:", e);
+    return;
+  }
+  console.log("Created MediaRecorder", mediaRecorder, "with options", options);
+  // disable record button to prevent concurrent recordings
+  stopButton.disabled = false;
+  recordButton.disabled = true;
+  mediaRecorder.onstop = (event) => {
+    console.log("Recorder stopped: ", event);
+    console.log("Recorded Blobs: ", recordedBlobs);
+  };
+  mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
-};
+  console.log("MediaRecorder started", mediaRecorder);
+}
 
-navigator.mediaDevices
-  .getUserMedia({ audio: true, video: true })
-  .then(handleSuccess);
+function stopRecording() {
+  mediaRecorder.stop();
+  stream.getTracks().forEach((track) => track.stop());
+  recordButton.disabled = false;
+}
+
+async function init(constraints) {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleSuccess(stream);
+  } catch (e) {
+    console.error("navigator.getUserMedia error:", e);
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
