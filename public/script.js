@@ -20,10 +20,14 @@ let shouldStop = false;
 let stopped = false;
 const downloadLink = document.getElementById("download");
 const stopButton = document.getElementById("stop");
+const videoState = document.getElementById("video-state");
 
 stopButton.addEventListener("click", function () {
   player.pause();
   shouldStop = true;
+  downloadLink.classList.remove("disabled");
+  stopButton.classList.add("disabled");
+  videoState.innerHTML = "Recording Stopped";
 });
 
 var handleSuccess = function (stream) {
@@ -47,6 +51,7 @@ var handleSuccess = function (stream) {
   mediaRecorder.addEventListener("stop", function () {
     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
     downloadLink.download = "acetest.webm";
+    
   });
 
   mediaRecorder.start();
