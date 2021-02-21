@@ -51,7 +51,6 @@ var handleSuccess = function (stream) {
   mediaRecorder.addEventListener("stop", function () {
     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
     downloadLink.download = "acetest.webm";
-    
   });
 
   mediaRecorder.start();
