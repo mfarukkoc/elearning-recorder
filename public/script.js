@@ -13,6 +13,8 @@ async function init(constraints) {
   }
 }
 
+let isRecording = false;
+
 recordButton.addEventListener("click", async () => {
   const constraints = {
     video: {
@@ -21,18 +23,29 @@ recordButton.addEventListener("click", async () => {
     },
   };
   await init(constraints);
-  startRecording();
+  if (!isRecording) {
+    recordButton.innerText = "Stop";
+    videoState.innerText = "Recording..";
+    recordButton.classList.remove("btn-primary");
+    recordButton.classList.add("btn-danger");
+    startRecording();
+  } else {
+    videoState.innerHTML = "&nbsp";
+    recordButton.innerText = "Record";
+    recordButton.classList.remove("btn-danger");
+    recordButton.classList.add("btn-primary");
+    stopRecording();
+  }
 });
 
-stopButton.addEventListener("click", () => {
-  stopRecording();
-});
+// stopButton.addEventListener("click", () => {
+//   stopRecording();
+// });
 
 let mediaRecorder;
 let recordedBlobs;
 
 function handleSuccess(stream) {
-  recordButton.disabled = false;
   console.log("getUserMedia() got stream:", stream);
   window.stream = stream;
 
@@ -48,7 +61,7 @@ function handleDataAvailable(event) {
 
 function startRecording() {
   recordedBlobs = [];
-
+  isRecording = true;
   // handle video codec, set supported codec
   let options = { mimeType: "video/webm;codecs=vp9,opus" };
   if (!MediaRecorder.isTypeSupported(options.mimeType)) {
@@ -71,8 +84,7 @@ function startRecording() {
   }
   console.log("Created MediaRecorder", mediaRecorder, "with options", options);
   // disable record button to prevent concurrent recordings
-  stopButton.disabled = false;
-  recordButton.disabled = true;
+
   mediaRecorder.onstop = (event) => {
     console.log("Recorder stopped: ", event);
     console.log("Recorded Blobs: ", recordedBlobs);
@@ -96,11 +108,11 @@ function startRecording() {
 }
 
 function stopRecording() {
+  isRecording = false;
   mediaRecorder.stop();
 
   // stop accessing webcam media device
   stream.getTracks().forEach((track) => track.stop());
-  recordButton.disabled = false;
 }
 
 async function init(constraints) {
