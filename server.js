@@ -17,22 +17,25 @@ const storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
+    console.log("file details");
     console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype == "image/jpeg" || file.mimetype == "image/png") {
+  if (file.mimetype === "video/webm" || file.mimetype === "video/mp4") {
+    console.log("filter success");
     cb(null, true);
   } else {
+    console.log("filter failed");
     cb(null, false);
   }
 };
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-app.post("/video", upload.single("image"), (req, res) => {
+app.post("/video", upload.single("video"), (req, res) => {
   try {
     return res.status(201).json({
       message: "File uploded successfully",
