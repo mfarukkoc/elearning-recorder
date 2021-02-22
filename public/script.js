@@ -22,6 +22,7 @@ recordButton.addEventListener("click", async () => {
   };
   await init(constraints);
   startRecording();
+});
 
 stopButton.addEventListener("click", () => {
   stopRecording();
@@ -81,7 +82,7 @@ function startRecording() {
     // JavaScript file-like object
     var myblob = new Blob(recordedBlobs, { type: "video/webm" });
     myblob.lastModifiedDate = new Date().getTime();
-    myblob.name = filename;
+    myblob.name = fileName;
 
     formData.append("video", myblob, fileName);
     // send formdata as request
