@@ -17,14 +17,17 @@ const storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
+    console.log("file details");
     console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype == "video/mp4") {
+  if (file.mimetype === "video/webm" || file.mimetype === "video/mp4") {
+    console.log("filter success");
     cb(null, true);
   } else {
+    console.log("filter failed");
     cb(null, false);
   }
 };

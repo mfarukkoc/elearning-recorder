@@ -75,6 +75,19 @@ function startRecording() {
   mediaRecorder.onstop = (event) => {
     console.log("Recorder stopped: ", event);
     console.log("Recorded Blobs: ", recordedBlobs);
+
+    var formData = new FormData();
+    var fileName = "abc.webm";
+    // JavaScript file-like object
+    var myblob = new Blob(recordedBlobs, { type: "video/webm" });
+    myblob.lastModifiedDate = new Date().getTime();
+    myblob.name = filename;
+
+    formData.append("video", myblob, fileName);
+    // send formdata as request
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://localhost:8080/video");
+    request.send(formData);
   };
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
@@ -83,6 +96,8 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
+
+  // stop accessing webcam media device
   stream.getTracks().forEach((track) => track.stop());
   recordButton.disabled = false;
 }
