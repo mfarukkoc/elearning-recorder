@@ -109,10 +109,13 @@ function startRecording() {
 
 function stopRecording() {
   isRecording = false;
-  mediaRecorder.stop();
+  // mediaRecorder.stop();
 
   // stop accessing webcam media device
-  stream.getTracks().forEach((track) => track.stop());
+  player.srcObject.getTracks().forEach(function(track) {
+    track.stop();
+  });
+  player.srcObject = null;
 }
 
 async function init(constraints) {
