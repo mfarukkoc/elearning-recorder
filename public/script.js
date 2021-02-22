@@ -3,16 +3,6 @@ const recordButton = document.getElementById("record");
 const stopButton = document.getElementById("stop");
 const videoState = document.getElementById("video-state");
 
-async function init(constraints) {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    console.log("success");
-  } catch (e) {
-    console.error("navigator.getUserMedia error:", e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
-  }
-}
-
 let isRecording = false;
 
 recordButton.addEventListener("click", async () => {
@@ -22,19 +12,19 @@ recordButton.addEventListener("click", async () => {
       height: 480,
     },
   };
-  await init(constraints);
   if (!isRecording) {
+    await init(constraints);
     recordButton.innerText = "Stop";
     videoState.innerText = "Recording..";
     recordButton.classList.remove("btn-primary");
     recordButton.classList.add("btn-danger");
-    startRecording();
+    await startRecording();
   } else {
     videoState.innerHTML = "&nbsp";
     recordButton.innerText = "Record";
     recordButton.classList.remove("btn-danger");
     recordButton.classList.add("btn-primary");
-    stopRecording();
+    await stopRecording();
   }
 });
 
@@ -108,11 +98,12 @@ function startRecording() {
 }
 
 function stopRecording() {
+  console.log("Stopping");
   isRecording = false;
   // mediaRecorder.stop();
 
   // stop accessing webcam media device
-  player.srcObject.getTracks().forEach(function(track) {
+  player.srcObject.getTracks().forEach((track) => {
     track.stop();
   });
   player.srcObject = null;
