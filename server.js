@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "video/webm" || file.mimetype === "video/mp4") {
     console.log("filter success");
@@ -31,6 +32,7 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
+
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 app.post("/video", upload.single("video"), (req, res) => {

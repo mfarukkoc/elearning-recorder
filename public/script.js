@@ -1,6 +1,7 @@
 const player = document.getElementById("player");
 const recordButton = document.getElementById("record");
 const stopButton = document.getElementById("stop");
+const videoState = document.getElementById("video-state");
 
 async function init(constraints) {
   try {
@@ -21,7 +22,6 @@ recordButton.addEventListener("click", async () => {
   };
   await init(constraints);
   startRecording();
-});
 
 stopButton.addEventListener("click", () => {
   stopRecording();
