@@ -13,49 +13,54 @@
       crossorigin="anonymous"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <style>
-      .smart-scroll {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-      }
-      .scrolled-down {
-        transform: translateY(-100%);
-        transition: all 0.3s ease-in-out;
-      }
-      .scrolled-up {
-        transform: translateY(0);
-        transition: all 0.3s ease-in-out;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav class="navbar smart-scroll navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">Brand</a>
+    <span id="typed"></span>
+    <nav class="navbar smart-scroll navbar-expand-lg">
+      <a class="navbar-brand">emoLearn</a>
       <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#toggler"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="" role="button"
+          ><i class="fa fa-bars" aria-hidden="true"></i
+        ></span>
       </button>
+
       <div class="collapse navbar-collapse" id="toggler">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home </a>
+            <a class="nav-link" href="#">About Project</a>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#"> About </a></li>
-          <li class="nav-item"><a class="nav-link" href="#"> Services </a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Our Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contribute">Contribute</a>
+          </li>
         </ul>
       </div>
       <!-- navbar-collapse.// -->
     </nav>
-    <div class="container">
+    <div class="container" id="contribute">
+      <span class="typed"></span>
       <h1 id="video-state" class="display-2 text-center">&nbsp</h1>
 
       <div class="embed-responsive embed-responsive-16by9 mb-3">
@@ -71,11 +76,14 @@
           <h5 class="card-title">Video Actions</h5>
           <p class="card-text">Choose action for video</p>
           <a id="record" class="btn btn-primary">Record</a>
+          <br />
+          <br />
+          <a class="btn btn-primary btn-emotions">Happy</a>
+          <a class="btn btn-primary btn-emotions">Sad</a>
         </div>
       </div>
     </div>
   </body>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script
     src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -86,7 +94,10 @@
     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
     crossorigin="anonymous"
   ></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
   <script src="./recorder.js" async></script>
   <script src="./animations.js"></script>
 </html>

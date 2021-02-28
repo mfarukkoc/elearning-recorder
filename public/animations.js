@@ -23,3 +23,17 @@ if (document.querySelector(".smart-scroll")) {
     last_scroll_top = scroll_top;
   });
 }
+
+// change active
+$(".navbar-nav a").on("click", function (e) {
+  $(".navbar-nav").find("li.active").removeClass("active");
+  $(this).parent("li").addClass("active");
+});
+
+let typed = new Typed(".typed", {
+  strings: ["emotions", "machineLearning", "e-learning", "emoLearn^1000"],
+  backSpeed: 50,
+  typeSpeed: 75,
+  backDelay: 2000,
+  loop: true,
+});

@@ -1,0 +1,45 @@
+.smart-scroll {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+.scrolled-down {
+  transform: translateY(-100%);
+  transition: all 0.3s ease-in-out;
+}
+.scrolled-up {
+  transform: translateY(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar {
+  background-color: #14213d !important;
+}
+
+.navbar * {
+  color: #ffffff !important;
+}
+* {
+  font-family: "Noto Sans", sans-serif;
+}
+
+.nav-item {
+  margin-right: 6px;
+}
+
+.nav-item {
+  font-weight: 500;
+}
+.nav-item.active {
+  font-weight: 700;
+}
+.nav-item:last-child {
+  display: flex;
+}
+.nav-item:last-child * {
+  flex: 0 0 auto;
+  border: 1px solid #fca311;
+  border-radius: 0.25rem;
+}
