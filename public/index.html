@@ -14,8 +14,12 @@
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -25,15 +29,15 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body data-spy="scroll" data-target="#navbar-items" data-offset="50">
     <span id="typed"></span>
-    <nav class="navbar smart-scroll navbar-expand-lg">
-      <a class="navbar-brand">emoLearn</a>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <a class="navbar-brand" href="#">emoLearn</a>
       <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#toggler"
+        data-target="#navbar-items"
         data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
@@ -44,23 +48,24 @@
         ></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="toggler">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">About Project</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Our Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
+      <nav
+        id="navbar-items"
+        class="collapse navbar-collapse justify-content-end"
+      >
+        <a class="nav-link" href="#about">About Project</a>
+
+        <a class="nav-link" href="#team">Our Team</a>
+
+        <a class="nav-link" href="#contribute">Contribute</a>
+      </nav>
       <!-- navbar-collapse.// -->
     </nav>
-    <div class="container" id="contribute">
+
+    <div id="about" style="height: 500px">
       <span class="typed"></span>
+    </div>
+    <div id="team" style="height: 500px"></div>
+    <div class="container" id="contribute">
       <h1 id="video-state" class="display-2 text-center">&nbsp</h1>
 
       <div class="embed-responsive embed-responsive-16by9 mb-3">
