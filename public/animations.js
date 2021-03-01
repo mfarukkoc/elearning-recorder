@@ -1,6 +1,4 @@
-AOS.init(); // animate on scroll initializiton
-
-//Auto hiding scroll-bar animation
+AOS.init({ startEvent: "load" }); //
 
 // add padding top to show content behind navbar
 

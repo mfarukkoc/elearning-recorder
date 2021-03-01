@@ -40,3 +40,7 @@ body {
   background-color: #fca311;
   color: #14213d !important;
 }
+
+svg {
+  display: inline-flex;
+}
