@@ -1,3 +1,7 @@
+body {
+  position: relative;
+  padding-top: 65px;
+}
 .navbar {
   background-color: #14213d !important;
 }
@@ -35,9 +39,4 @@
   border-color: #ffffff;
   background-color: #fca311;
   color: #14213d !important;
-}
-
-body {
-  position: relative;
-  padding-top: 65;
 }
