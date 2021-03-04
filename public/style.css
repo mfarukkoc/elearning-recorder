@@ -44,3 +44,23 @@ body {
 svg {
   display: inline-flex;
 }
+
+.mw-60 {
+  max-width: 60%;
+}
+.social-link {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+section {
+  padding-top: 65px;
+}
