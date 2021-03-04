@@ -35,6 +35,8 @@ recordButton.addEventListener("click", async () => {
 let mediaRecorder;
 let recordedBlobs;
 
+let timeStamps = {};
+
 function handleSuccess(stream) {
   console.log("getUserMedia() got stream:", stream);
   window.stream = stream;
@@ -51,6 +53,7 @@ function handleDataAvailable(event) {
 
 function startRecording() {
   recordedBlobs = [];
+
   isRecording = true;
   // handle video codec, set supported codec
   let options = { mimeType: "video/webm;codecs=vp9,opus" };
@@ -68,6 +71,7 @@ function startRecording() {
   }
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
+    timeStamps = { startTime: new Date() };
   } catch (e) {
     console.error("Exception while creating MediaRecorder:", e);
     return;
@@ -80,13 +84,19 @@ function startRecording() {
     console.log("Recorded Blobs: ", recordedBlobs);
 
     var formData = new FormData();
-    var fileName = "abc.webm";
+    var fileName = "video.webm";
     // JavaScript file-like object
     var myblob = new Blob(recordedBlobs, { type: "video/webm" });
     myblob.lastModifiedDate = new Date().getTime();
     myblob.name = fileName;
 
     formData.append("video", myblob, fileName);
+
+    const jsonBlob = new Blob([JSON.stringify(timeStamps)], {
+      type: "application/json",
+    });
+
+    formData.append("metadata", jsonBlob, "meta.json");
     // send formdata as request
     var request = new XMLHttpRequest();
     request.open("POST", "http://localhost:8080/video");
@@ -118,3 +128,17 @@ async function init(constraints) {
     errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
 }
+
+// add click event listener for each emotion button
+document.querySelectorAll(".btn-emotions").forEach((element) =>
+  element.addEventListener("click", (e) => {
+    console.log(e.target.innerText);
+    let now = new Date();
+    let time = now - timeStamps.startTime;
+    console.log("timestamp", time);
+    timeStamps.emotions = {
+      ...timeStamps.emotions,
+      [time]: e.target.innerText,
+    };
+  })
+);
