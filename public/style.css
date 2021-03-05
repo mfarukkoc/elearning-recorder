@@ -1,6 +1,7 @@
 body {
   position: relative;
   padding-top: 65px;
+  color: #14213d;
 }
 .navbar {
   background-color: #14213d !important;
