@@ -27,18 +27,17 @@ body {
 .nav-link {
   display: flex;
 }
-.nav-link:last-child {
+#contribute-button {
   flex: 0 0 auto;
   border: 2px solid #fca311;
   border-radius: 0.25rem;
-  color: #fca311 !important;
-}
-
-.nav-link.active:last-child {
-  font-weight: 700;
-  border-color: #ffffff;
   background-color: #fca311;
   color: #14213d !important;
+  cursor: pointer;
+}
+
+#contribute-button:hover {
+  font-weight: 700;
 }
 
 svg {
