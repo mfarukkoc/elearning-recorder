@@ -1,6 +1,7 @@
 body {
   position: relative;
   padding-top: 65px;
+  color: #14213d;
 }
 .navbar {
   background-color: #14213d !important;
@@ -59,7 +60,24 @@ svg {
   transition: all 0.3s;
   font-size: 1rem;
 }
-
+.social-link:hover {
+  color: #14213d;
+  border-color: #14213d;
+}
 section {
   padding-top: 65px;
+}
+
+#section-divider-1,
+#privacy-wrapper,
+#team {
+  background-color: #e5e5e5;
+}
+
+#section-divider-2 {
+  background-color: white;
+  height: 60px;
+  width: 100%;
+  display: block;
+  position: relative;
 }

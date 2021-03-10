@@ -1,32 +1,38 @@
 const player = document.getElementById("player");
 const recordButton = document.getElementById("record");
-const stopButton = document.getElementById("stop");
 
 let isRecording = false;
 
-recordButton.addEventListener("click", async () => {
+window.onload = async () => {
   const constraints = {
     video: {
       width: 720,
       height: 480,
     },
   };
-  if (!isRecording) {
-    await init(constraints);
-    recordButton.innerText = "Stop";
-    recordButton.classList.remove("btn-primary");
-    recordButton.classList.add("btn-danger");
-    await startRecording();
-  } else {
-    recordButton.innerText = "Record";
-    recordButton.classList.remove("btn-danger");
-    recordButton.classList.add("btn-primary");
-    await stopRecording();
-  }
-});
+  await init(constraints);
+  await startRecording();
+};
 
-// stopButton.addEventListener("click", () => {
-//   stopRecording();
+// recordButton.addEventListener("click", async () => {
+//   const constraints = {
+//     video: {
+//       width: 720,
+//       height: 480,
+//     },
+//   };
+//   if (!isRecording) {
+//     await init(constraints);
+//     recordButton.innerText = "Stop";
+//     recordButton.classList.remove("btn-primary");
+//     recordButton.classList.add("btn-danger");
+//     await startRecording();
+//   } else {
+//     recordButton.innerText = "Record";
+//     recordButton.classList.remove("btn-danger");
+//     recordButton.classList.add("btn-primary");
+//     await stopRecording();
+//   }
 // });
 
 let mediaRecorder;
