@@ -3,6 +3,7 @@ body {
 }
 * {
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
 }
 #player {
   position: fixed;
@@ -10,4 +11,52 @@ body {
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+}
+
+#controls {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  grid-template-rows: auto;
+  padding: 1rem;
+  display: grid;
+}
+
+#buttons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 1rem;
+  grid-row-gap: 20px;
+  padding-bottom: 1rem;
+}
+
+.btn-emotions {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 1rem;
+
+  border: none;
+  transition: 0.2s;
+  cursor: pointer;
+  font-size: large;
+  font-weight: 600;
+}
+
+.btn-emotions:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-emotions:focus {
+  outline: none;
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#video-controls {
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
 }

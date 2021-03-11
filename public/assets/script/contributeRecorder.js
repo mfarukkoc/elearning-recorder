@@ -1,8 +1,8 @@
 const player = document.getElementById("player");
-const recordButton = document.getElementById("record");
+
+let uploadQue = [];
 
 let isRecording = false;
-
 window.onload = async () => {
   const constraints = {
     video: {
@@ -14,30 +14,9 @@ window.onload = async () => {
   await startRecording();
 };
 
-// recordButton.addEventListener("click", async () => {
-//   const constraints = {
-//     video: {
-//       width: 720,
-//       height: 480,
-//     },
-//   };
-//   if (!isRecording) {
-//     await init(constraints);
-//     recordButton.innerText = "Stop";
-//     recordButton.classList.remove("btn-primary");
-//     recordButton.classList.add("btn-danger");
-//     await startRecording();
-//   } else {
-//     recordButton.innerText = "Record";
-//     recordButton.classList.remove("btn-danger");
-//     recordButton.classList.add("btn-primary");
-//     await stopRecording();
-//   }
-// });
-
 let mediaRecorder;
 let recordedBlobs;
-
+let recordingInterval;
 let timeStamps = {};
 
 function handleSuccess(stream) {
@@ -85,7 +64,6 @@ function startRecording() {
   mediaRecorder.onstop = (event) => {
     console.log("Recorder stopped: ", event);
     console.log("Recorded Blobs: ", recordedBlobs);
-
     var formData = new FormData();
     var fileName = "video.webm";
     // JavaScript file-like object
@@ -101,19 +79,38 @@ function startRecording() {
 
     formData.append("metadata", jsonBlob, "meta.json");
     // send formdata as request
-    var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost:8080/video");
-    request.send(formData);
+    uploadQue.push(formData);
+    // var request = new XMLHttpRequest();
+    // request.open("POST", "http://localhost:8080/video");
+    // request.send(formData);
   };
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
+
+  recordingInterval = setInterval(() => {
+    if (mediaRecorder.state !== "recording") {
+      clearInterval(recordingInterval);
+      console.log("not recording");
+      console.log(uploadQue);
+    } else if (isRecording === false) {
+      clearInterval(recordingInterval);
+      recordedBlobs = [];
+    } else {
+      mediaRecorder.stop();
+      recordedBlobs = [];
+      timeStamps = { startTime: new Date() };
+      mediaRecorder.start();
+    }
+  }, 10000); // every 10 seconds
   console.log("MediaRecorder started", mediaRecorder);
 }
 
 function stopRecording() {
+  mediaRecorder.stop();
+  clearInterval(recordingInterval);
+  recordedBlobs = [];
   console.log("Stopping");
   isRecording = false;
-  // mediaRecorder.stop();
 
   // stop accessing webcam media device
   player.srcObject.getTracks().forEach((track) => {
@@ -145,3 +142,19 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
     };
   })
 );
+
+const uploadForm = async (formData) => {
+  var request = new XMLHttpRequest();
+  await request.open("POST", "http://localhost:8080/video");
+  await request.send(formData);
+};
+
+let isUploading = false;
+
+setInterval(async () => {
+  if (!isUploading && uploadQue.length > 0) {
+    isUploading = true;
+    await uploadForm(uploadQue.shift());
+    isUploading = false;
+  }
+}, 1000);

@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/style/contribute.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>emoLearn</title>
     <link
       rel="icon"
@@ -21,6 +26,24 @@
   </head>
   <body>
     <video id="player" autoplay></video>
+    <div id="controls">
+      <div id="buttons-wrapper">
+        <button class="btn-emotions" onclick="this.blur();">Annoyance</button>
+        <button class="btn-emotions" onclick="this.blur();">Amusement</button>
+        <button class="btn-emotions" onclick="this.blur();">Anxiety</button>
+        <button class="btn-emotions" onclick="this.blur();">Contempt</button>
+        <button class="btn-emotions" onclick="this.blur();">
+          Disappointment
+        </button>
+        <button class="btn-emotions" onclick="this.blur();">Dislike</button>
+        <button class="btn-emotions" onclick="this.blur();">Excitement</button>
+        <button class="btn-emotions" onclick="this.blur();">Frustration</button>
+        <button class="btn-emotions" onclick="this.blur();">Panic</button>
+        <button class="btn-emotions" onclick="this.blur();">Pride</button>
+        <button class="btn-emotions" onclick="this.blur();">Relief</button>
+        <button class="btn-emotions" onclick="this.blur();">Surprise</button>
+      </div>
+    </div>
   </body>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="./assets/script/contributeRecorder.js" async></script>
