@@ -95,3 +95,22 @@ section {
   display: block;
   position: relative;
 }
+
+footer {
+  background-color: #14213d;
+  color: white;
+}
+
+footer a {
+  color: #ccc;
+}
+
+footer a:hover {
+  color: red;
+  text-decoration: none;
+}
+
+#freepik-attribute {
+  color: #14213d;
+  font-weight: 600;
+}
