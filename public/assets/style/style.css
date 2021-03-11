@@ -36,9 +36,23 @@ body {
   color: #14213d !important;
   cursor: pointer;
 }
-
 #contribute-button:hover {
   font-weight: 700;
+}
+#contribute-button-2 {
+  box-sizing: border-box;
+  margin-top: 0.5rem;
+  padding: 1.25rem;
+  font-size: 1.25rem;
+  border: 2px solid #fca311;
+  border-radius: 0.25rem;
+  background-color: #fca311;
+  color: #14213d;
+  font-weight: 500;
+}
+
+#contribute-button-2:hover {
+  border: 2px solid #14213d;
 }
 
 svg {
