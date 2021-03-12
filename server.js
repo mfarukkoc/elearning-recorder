@@ -47,14 +47,14 @@ const upload = multer({ storage: storage, fileFilter: fileFilter }).fields([
 app.post("/video", async (req, res) => {
   try {
     req.id = uuidv4();
-    upload(req, res, (err) => console.log(err));
+    upload(req, res, (err) => console.log("Error", err));
     return res.status(201).json({
       message: "File uploded successfully",
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error", error);
     res.status(500).json({
-      message: "File uploded successfully",
+      message: "File uplod error",
     });
   }
 });

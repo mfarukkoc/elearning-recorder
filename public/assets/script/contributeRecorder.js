@@ -1,7 +1,11 @@
 const player = document.getElementById("player");
-
+const progressBar = document.getElementById("myBar");
+const totalCount = document.getElementById("total-count");
+const progressCount = document.getElementById("progress-count");
+const progressStatus = document.getElementById("progress-status");
 let uploadQue = [];
-
+let totalUploads = 0;
+let currentUpload = 0;
 let isRecording = false;
 window.onload = async () => {
   const constraints = {
@@ -72,7 +76,6 @@ function startRecording() {
     myblob.name = fileName;
 
     formData.append("video", myblob, fileName);
-
     const jsonBlob = new Blob([JSON.stringify(timeStamps)], {
       type: "application/json",
     });
@@ -80,9 +83,8 @@ function startRecording() {
     formData.append("metadata", jsonBlob, "meta.json");
     // send formdata as request
     uploadQue.push(formData);
-    // var request = new XMLHttpRequest();
-    // request.open("POST", "http://localhost:8080/video");
-    // request.send(formData);
+    totalUploads += 1;
+    totalCount.innerText = totalUploads;
   };
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
@@ -97,11 +99,14 @@ function startRecording() {
       recordedBlobs = [];
     } else {
       mediaRecorder.stop();
-      recordedBlobs = [];
-      timeStamps = { startTime: new Date() };
-      mediaRecorder.start();
+      // delay between stopping & re-starting to prevent race conditions on timestamps
+      setTimeout(() => {
+        recordedBlobs = [];
+        timeStamps = { startTime: new Date() };
+        mediaRecorder.start();
+      }, 10);
     }
-  }, 10000); // every 10 seconds
+  }, 60000); // every 10 seconds
   console.log("MediaRecorder started", mediaRecorder);
 }
 
@@ -146,6 +151,18 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
 const uploadForm = async (formData) => {
   var request = new XMLHttpRequest();
   await request.open("POST", "http://localhost:8080/video");
+  request.upload.addEventListener(
+    "progress",
+    function (evt) {
+      if (evt.lengthComputable) {
+        let percentComplete = evt.loaded / evt.total;
+        percentComplete = parseInt(percentComplete * 100);
+        console.log("Progress = ", percentComplete);
+        move(percentComplete);
+      }
+    },
+    false
+  );
   await request.send(formData);
 };
 
@@ -153,8 +170,17 @@ let isUploading = false;
 
 setInterval(async () => {
   if (!isUploading && uploadQue.length > 0) {
+    move(1);
+    currentUpload += 1;
     isUploading = true;
+    progressStatus.innerText = "Uploading..";
+    progressCount.innerText = currentUpload;
     await uploadForm(uploadQue.shift());
     isUploading = false;
+    if (currentUpload === totalUploads) progressStatus.innerText = "Uploaded";
   }
 }, 1000);
+
+function move(width) {
+  progressBar.style.width = width + "%";
+}
