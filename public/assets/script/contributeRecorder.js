@@ -184,3 +184,4 @@ setInterval(async () => {
 function move(width) {
   progressBar.style.width = width + "%";
 }
+$(".dropdown-auto").select2();

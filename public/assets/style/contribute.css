@@ -81,3 +81,24 @@ body {
   align-self: center;
   justify-self: center;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+#pre-record {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  padding: 1rem;
+  display: grid;
+}
+
+#input-elements {
+  display: grid;
+}
+
+#submit-wrapper {
+}
