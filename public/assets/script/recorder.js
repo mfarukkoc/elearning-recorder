@@ -27,10 +27,6 @@ recordButton.addEventListener("click", async () => {
   }
 });
 
-// stopButton.addEventListener("click", () => {
-//   stopRecording();
-// });
-
 let mediaRecorder;
 let recordedBlobs;
 let recordingInterval;

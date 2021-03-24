@@ -1,22 +1,52 @@
 const player = document.getElementById("player");
-const progressBar = document.getElementById("myBar");
+const progressBar = document.getElementById("bar");
 const totalCount = document.getElementById("total-count");
 const progressCount = document.getElementById("progress-count");
 const progressStatus = document.getElementById("progress-status");
+const recordButton = document.getElementById("record-btn");
+
+// pre recording form data
+const lecture = new SlimSelect({
+  select: "#dropdown-auto",
+});
+const preData = {};
+const preRecord = document.querySelector("#pre-record");
+const slider = document.querySelector("#interest-slider");
+const controls = document.querySelector("#controls");
+const nextButton = document.querySelector("#next-button");
+
+nextButton.addEventListener("click", () => {
+  preData.lecture = lecture.selected();
+  preData.interest = slider.value;
+  console.log(preData);
+  preRecord.classList.add("hidden");
+  controls.classList.remove("hidden");
+  recordButton.click();
+});
+
+// end pre recording form
+
 let uploadQue = [];
 let totalUploads = 0;
 let currentUpload = 0;
 let isRecording = false;
-window.onload = async () => {
+
+recordButton.addEventListener("click", async () => {
   const constraints = {
     video: {
       width: 720,
       height: 480,
     },
   };
-  await init(constraints);
-  await startRecording();
-};
+  if (!isRecording) {
+    await init(constraints);
+    recordButton.innerText = "Stop";
+    await startRecording();
+  } else {
+    recordButton.innerText = "Record";
+    await stopRecording();
+  }
+});
 
 let mediaRecorder;
 let recordedBlobs;
@@ -57,7 +87,7 @@ function startRecording() {
   }
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
-    timeStamps = { startTime: new Date() };
+    timeStamps = { recordDate: new Date(), ...preData };
   } catch (e) {
     console.error("Exception while creating MediaRecorder:", e);
     return;
@@ -102,7 +132,7 @@ function startRecording() {
       // delay between stopping & re-starting to prevent race conditions on timestamps
       setTimeout(() => {
         recordedBlobs = [];
-        timeStamps = { startTime: new Date() };
+        timeStamps = { recordDate: new Date(), ...preData };
         mediaRecorder.start();
       }, 10);
     }
@@ -130,17 +160,14 @@ async function init(constraints) {
     handleSuccess(stream);
   } catch (e) {
     console.error("navigator.getUserMedia error:", e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
   }
 }
 
 // add click event listener for each emotion button
 document.querySelectorAll(".btn-emotions").forEach((element) =>
   element.addEventListener("click", (e) => {
-    console.log(e.target.innerText);
     let now = new Date();
-    let time = now - timeStamps.startTime;
-    console.log("timestamp", time);
+    let time = now - timeStamps.recordDate;
     timeStamps.emotions = {
       ...timeStamps.emotions,
       [time]: e.target.innerText,
@@ -184,4 +211,3 @@ setInterval(async () => {
 function move(width) {
   progressBar.style.width = width + "%";
 }
-$(".dropdown-auto").select2();

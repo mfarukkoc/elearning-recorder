@@ -10,16 +10,8 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css" rel="stylesheet"></link>
 
     <title>emoLearn</title>
     <link
@@ -39,20 +31,25 @@
     <video id="player" autoplay></video>
     <div id="pre-record">
       <div id="input-elements">
-        <select class="dropdown-auto" name="state">
-          <option value="AL">Alabama</option>
-
-          <option value="WY">Wyoming</option>
-
-          <option value="Other">Other</option>
-        </select>
-        <input type="range" min="1" max="10" value="5" />
+        <span class="input-wrap">
+          <label>Course Name</label>
+          <select id="dropdown-auto" name="state">
+            <option value="Other">Other</option>
+            <option value="Programming III">Programming III</option>
+            <option value="OOP">Object Oriented Programming</option>
+            
+          </select>
+        </span>
+        <span class="input-wrap">
+          <label>Interest</label>
+          <input type="range" min="0" max="10" step="0.1" id="interest-slider" />
+        </span>
       </div>
       <div id="submit-wrapper">
-        <button>Next</button>
+        <button id="next-button">Next</button>
       </div>
     </div>
-    <div id="controls" class="hidden">
+    <div id="controls"  class="hidden" >
       <div id="buttons-wrapper">
         <button class="btn-emotions" onclick="this.blur();">Annoyance</button>
         <button class="btn-emotions" onclick="this.blur();">Amusement</button>
@@ -70,18 +67,20 @@
         <button class="btn-emotions" onclick="this.blur();">Surprise</button>
       </div>
       <div id="video-controls">
-        <div id="myProgress">
+        <button id="record-btn">Stop</button>
+        <div id="progress">
           <span
             ><span id="progress-status"> Uploaded </span>
             <span id="progress-count">0</span>/<span id="total-count"
               >0</span
             ></span
           >
-          <div id="myBar"></div>
+          <div id="bar"></div>
         </div>
       </div>
     </div>
   </body>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="./assets/script/preRecord.js"></script>
   <script src="./assets/script/contributeRecorder.js" async></script>
 </html>
