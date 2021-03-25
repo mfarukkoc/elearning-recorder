@@ -136,7 +136,7 @@ function startRecording() {
         mediaRecorder.start();
       }, 10);
     }
-  }, 60000); // every 10 seconds
+  }, 600000); // every 10 minutes
   console.log("MediaRecorder started", mediaRecorder);
 }
 
