@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css" rel="stylesheet"></link>
+
     <title>emoLearn</title>
     <link
       rel="icon"
@@ -26,7 +29,27 @@
   </head>
   <body>
     <video id="player" autoplay></video>
-    <div id="controls">
+    <div id="pre-record">
+      <div id="input-elements">
+        <span class="input-wrap">
+          <label>Course Name</label>
+          <select id="dropdown-auto" name="state">
+            <option value="Other">Other</option>
+            <option value="Programming III">Programming III</option>
+            <option value="OOP">Object Oriented Programming</option>
+            
+          </select>
+        </span>
+        <span class="input-wrap">
+          <label>Interest</label>
+          <input type="range" min="0" max="10" step="0.1" id="interest-slider" />
+        </span>
+      </div>
+      <div id="submit-wrapper">
+        <button id="next-button">Next</button>
+      </div>
+    </div>
+    <div id="controls"  class="hidden" >
       <div id="buttons-wrapper">
         <button class="btn-emotions" onclick="this.blur();">Annoyance</button>
         <button class="btn-emotions" onclick="this.blur();">Amusement</button>
@@ -44,14 +67,15 @@
         <button class="btn-emotions" onclick="this.blur();">Surprise</button>
       </div>
       <div id="video-controls">
-        <div id="myProgress">
+        <button id="record-btn">Stop</button>
+        <div id="progress">
           <span
             ><span id="progress-status"> Uploaded </span>
             <span id="progress-count">0</span>/<span id="total-count"
               >0</span
             ></span
           >
-          <div id="myBar"></div>
+          <div id="bar"></div>
         </div>
       </div>
     </div>
