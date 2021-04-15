@@ -9,15 +9,23 @@ const recordButton = document.getElementById("record-btn");
 const lecture = new SlimSelect({
   select: "#dropdown-auto",
 });
+const feelings = new SlimSelect({
+  select: "#feelings-dropdown",
+});
 const preData = {};
 const preRecord = document.querySelector("#pre-record");
-const slider = document.querySelector("#interest-slider");
+const interestSlider = document.querySelector("#interest-slider");
+const difficultySlider = document.querySelector("#difficulty-slider");
+const speedSlider = document.querySelector("#speed-slider");
 const controls = document.querySelector("#controls");
 const nextButton = document.querySelector("#next-button");
 
 nextButton.addEventListener("click", () => {
   preData.lecture = lecture.selected();
-  preData.interest = slider.value;
+  preData.feelings = feelings.selected();
+  preData.difficulty = difficultySlider.value;
+  preData.interest = interestSlider.value;
+  preData.teacherSpeed = speedSlider.value;
   console.log(preData);
   preRecord.classList.add("hidden");
   controls.classList.remove("hidden");

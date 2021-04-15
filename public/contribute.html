@@ -10,8 +10,11 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css" rel="stylesheet"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css"
+      rel="stylesheet"
+    />
 
     <title>emoLearn</title>
     <link
@@ -36,25 +39,38 @@
           <select id="dropdown-auto" name="state">
             <option value="Other">Other</option>
             <option value="Programming III">Programming III</option>
-            <option value="Graphical User Interface Design and Dev.">Graphical User Interface Design and Dev.</option>
+            <option value="Graphical User Interface Design and Dev.">
+              Graphical User Interface Design and Dev.
+            </option>
             <option value="Mobile Programming">Mobile Programming</option>
             <option value="Web Programming II">Web Programming II</option>
-            <option value="Mobile and Wireless Networks">Mobile and Wireless Networks</option>
+            <option value="Mobile and Wireless Networks">
+              Mobile and Wireless Networks
+            </option>
             <option value="Network Security">Network Security</option>
-            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Artificial Intelligence">
+              Artificial Intelligence
+            </option>
             <option value="Image Processing">Image Processing</option>
-            <option value="Special Topics in Software Engineering">Special Topics in Software Engineering</option>
-            <option value="Graph Theory and Social Networking">Graph Theory and Social Networking</option>
-            
-            
+            <option value="Special Topics in Software Engineering">
+              Special Topics in Software Engineering
+            </option>
+            <option value="Graph Theory and Social Networking">
+              Graph Theory and Social Networking
+            </option>
+
             <option value="Academic English II">Academic English II</option>
             <option value="Programming II">Programming II</option>
             <option value="Chemistry">Chemistry</option>
             <option value="Physics II">Physics II</option>
             <option value="Calculus II">Calculus II</option>
-            <option value="System Analysis and HCI Design">System Analysis and HCI Design</option>
+            <option value="System Analysis and HCI Design">
+              System Analysis and HCI Design
+            </option>
             <option value="Microprocessors">Microprocessors</option>
-            <option value="Data Structures and Algorithms I">Data Structures and Algorithms I</option>
+            <option value="Data Structures and Algorithms I">
+              Data Structures and Algorithms I
+            </option>
             <option value="Computer Organization">Computer Organization</option>
             <option value="Signals and Systems">Signals and Systems</option>
             <option value="Computer Networks">Computer Networks</option>
@@ -63,30 +79,76 @@
           </select>
         </span>
         <span class="input-wrap">
+          <label>Feelings about Lecture</label>
+          <select id="feelings-dropdown" name="state" multiple>
+            <option value="Dislike">Dislike</option>
+            <option value="Loved">Loved</option>
+            <option value="Frustration">Frustration</option>
+            <option value="Relief">Relief</option>
+            <option value="Anxiety">Anxiety</option>
+            <option value="Dissatisfied">Dissatisfied</option>
+            <option value="Disappointed">Disappointed</option>
+            <option value="Hopeless">Hopeless</option>
+          </select>
+        </span>
+        <span class="input-wrap">
           <label>Interest</label>
-          <input type="range" min="0" max="10" step="0.1" id="interest-slider" />
+          <div class="range-wrap">
+            <label>0</label>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              id="interest-slider"
+            />
+            <label>10</label>
+          </div>
+        </span>
+        <span class="input-wrap">
+          <label>Difficulty</label>
+          <div class="range-wrap">
+            <label>Easy</label>
+            <input
+              name="difficulty"
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              id="difficulty-slider"
+            />
+            <label>Difficult</label>
+          </div>
+        </span>
+        <span class="input-wrap">
+          <label>Teacher Speaking Speed</label>
+          <div class="range-wrap">
+            <label>Slow</label
+            ><input
+              type="range"
+              min="0"
+              max="10"
+              step="0.1"
+              id="speed-slider"
+            /><label>Fast</label>
+          </div>
         </span>
       </div>
       <div id="submit-wrapper">
         <button id="next-button">Next</button>
       </div>
     </div>
-    <div id="controls"  class="hidden" >
+    <div id="controls" class="hidden">
       <div id="buttons-wrapper">
-        <button class="btn-emotions" onclick="this.blur();">Annoyance</button>
-        <button class="btn-emotions" onclick="this.blur();">Amusement</button>
-        <button class="btn-emotions" onclick="this.blur();">Anxiety</button>
-        <button class="btn-emotions" onclick="this.blur();">Contempt</button>
-        <button class="btn-emotions" onclick="this.blur();">
-          Disappointment
-        </button>
-        <button class="btn-emotions" onclick="this.blur();">Dislike</button>
-        <button class="btn-emotions" onclick="this.blur();">Excitement</button>
-        <button class="btn-emotions" onclick="this.blur();">Frustration</button>
+        <button class="btn-emotions" onclick="this.blur();">Bored</button>
+        <button class="btn-emotions" onclick="this.blur();">Confused</button>
+        <button class="btn-emotions" onclick="this.blur();">Excited</button>
+        <button class="btn-emotions" onclick="this.blur();">Fine</button>
+        <button class="btn-emotions" onclick="this.blur();">Focused</button>
+        <button class="btn-emotions" onclick="this.blur();">Happy</button>
         <button class="btn-emotions" onclick="this.blur();">Panic</button>
         <button class="btn-emotions" onclick="this.blur();">Pride</button>
-        <button class="btn-emotions" onclick="this.blur();">Relief</button>
-        <button class="btn-emotions" onclick="this.blur();">Surprise</button>
+        <button class="btn-emotions" onclick="this.blur();">Relaxed</button>
       </div>
       <div id="video-controls">
         <button id="record-btn">Stop</button>
