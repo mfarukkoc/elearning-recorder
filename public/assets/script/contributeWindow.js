@@ -2,7 +2,7 @@ let countributeButton = document.getElementById("contribute-button");
 let countributeButton2 = document.getElementById("contribute-button-2");
 
 var width = 720;
-var height = 480;
+var height = 620;
 var left = screen.width - screen.width;
 var bottom = 0;
 var params = "width=" + width + ", height=" + height;
