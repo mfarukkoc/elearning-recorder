@@ -184,21 +184,25 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
 );
 
 const uploadForm = async (formData) => {
-  var request = new XMLHttpRequest();
-  await request.open("POST", "http://localhost:8080/video");
-  request.upload.addEventListener(
-    "progress",
-    function (evt) {
-      if (evt.lengthComputable) {
-        let percentComplete = evt.loaded / evt.total;
-        percentComplete = parseInt(percentComplete * 100);
-        console.log("Progress = ", percentComplete);
-        move(percentComplete);
-      }
-    },
-    false
-  );
-  await request.send(formData);
+  try {
+    var request = new XMLHttpRequest();
+    await request.open("POST", "http://localhost:8080/video");
+    request.upload.addEventListener(
+      "progress",
+      function (evt) {
+        if (evt.lengthComputable) {
+          let percentComplete = evt.loaded / evt.total;
+          percentComplete = parseInt(percentComplete * 100);
+          console.log("Progress = ", percentComplete);
+          move(percentComplete);
+        }
+      },
+      false
+    );
+    await request.send(formData);
+  } catch (error) {
+    console.error("Error while uploading:", error);
+  }
 };
 
 let isUploading = false;
