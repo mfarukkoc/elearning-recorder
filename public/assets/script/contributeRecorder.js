@@ -186,7 +186,7 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
 const uploadForm = async (formData) => {
   try {
     var request = new XMLHttpRequest();
-    await request.open("POST", "http://localhost:8080/video");
+    await request.open("POST", "/video.php");
     request.upload.addEventListener(
       "progress",
       function (evt) {
