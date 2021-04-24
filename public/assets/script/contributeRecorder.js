@@ -182,7 +182,7 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
     };
   })
 );
-
+let isUploading = false;
 const uploadForm = async (formData) => {
   try {
     var request = new XMLHttpRequest();
@@ -195,6 +195,11 @@ const uploadForm = async (formData) => {
           percentComplete = parseInt(percentComplete * 100);
           console.log("Progress = ", percentComplete);
           move(percentComplete);
+          if (percentComplete === 100) {
+            isUploading = false;
+            if (currentUpload === totalUploads)
+              progressStatus.innerText = "Uploaded";
+          }
         }
       },
       false
@@ -205,8 +210,6 @@ const uploadForm = async (formData) => {
   }
 };
 
-let isUploading = false;
-
 setInterval(async () => {
   if (!isUploading && uploadQue.length > 0) {
     move(1);
@@ -215,8 +218,7 @@ setInterval(async () => {
     progressStatus.innerText = "Uploading..";
     progressCount.innerText = currentUpload;
     await uploadForm(uploadQue.shift());
-    isUploading = false;
-    if (currentUpload === totalUploads) progressStatus.innerText = "Uploaded";
+    //if (currentUpload === totalUploads) progressStatus.innerText = "Uploaded";
   }
 }, 1000);
 
