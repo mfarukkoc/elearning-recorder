@@ -36,17 +36,13 @@ The fifth step is currently being discussed. The instructor will be asked whethe
 
 ### Backend
 
-- [Node.js](https://nodejs.org/en/download/) JavaScript runtime engine.
+- [PHP](https://www.php.net/) scripting language.
 
-- [express](https://www.npmjs.com/package/express) unopinionated, minimalist web framework.
+- Uploaded videos and related labels stored in `/uploads` folder.
 
-- [multer](https://www.npmjs.com/package/multer) middleware for handling `multipart/form-data` and file uploading.
+- Pre recording form data stored in `/forms` folder.
 
-- [yarn](https://yarnpkg.com/) is used for package management
-
-- [uuid](https://github.com/uuidjs/uuid) is used to create the folder id for each **POST** operation.
-
-- [body parser](https://github.com/expressjs/body-parser) parses every incoming **REQUEST**.
+- A folder with unique id created for each succesful request.
 
 ## So what do we do with this data ?
 
