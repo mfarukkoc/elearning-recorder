@@ -7,10 +7,10 @@ const recordButton = document.getElementById("record-btn");
 
 // pre recording form data
 const lecture = new SlimSelect({
-  select: "#dropdown-auto",
+  select: "#dropdown-auto"
 });
 const feelings = new SlimSelect({
-  select: "#feelings-dropdown",
+  select: "#feelings-dropdown"
 });
 const preData = {};
 const preRecord = document.querySelector("#pre-record");
@@ -26,7 +26,18 @@ nextButton.addEventListener("click", () => {
   preData.difficulty = difficultySlider.value;
   preData.interest = interestSlider.value;
   preData.teacherSpeed = speedSlider.value;
-  console.log(preData);
+  let formData = new FormData();
+
+  const jsonBlob = new Blob([JSON.stringify(preData)], {
+    type: "application/json"
+  });
+
+  formData.append("metadata", jsonBlob, "form.json");
+  let request = new XMLHttpRequest();
+
+  request.open("POST", "/elearn/form.php");
+  request.send(formData);
+
   preRecord.classList.add("hidden");
   controls.classList.remove("hidden");
   recordButton.click();
@@ -43,8 +54,8 @@ recordButton.addEventListener("click", async () => {
   const constraints = {
     video: {
       width: 720,
-      height: 480,
-    },
+      height: 480
+    }
   };
   if (!isRecording) {
     await init(constraints);
@@ -115,7 +126,7 @@ function startRecording() {
 
     formData.append("video", myblob, fileName);
     const jsonBlob = new Blob([JSON.stringify(timeStamps)], {
-      type: "application/json",
+      type: "application/json"
     });
 
     formData.append("metadata", jsonBlob, "meta.json");
@@ -144,7 +155,7 @@ function startRecording() {
         mediaRecorder.start();
       }, 10);
     }
-  }, 600000); // every 10 minutes
+  }, 60000); // every 1 minutes
   console.log("MediaRecorder started", mediaRecorder);
 }
 
@@ -178,7 +189,7 @@ document.querySelectorAll(".btn-emotions").forEach((element) =>
     let time = now - timeStamps.recordDate;
     timeStamps.emotions = {
       ...timeStamps.emotions,
-      [time]: e.target.innerText,
+      [time]: e.target.innerText
     };
   })
 );
